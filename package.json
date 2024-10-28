@@ -1,5 +1,5 @@
 {
-  "name": "@ap-js/express",
+  "name": "exlite",
   "version": "0.0.1",
   "description": "A utility library designed to simplify and enhance Express.js applications.",
   "main": "dist/index.js",
