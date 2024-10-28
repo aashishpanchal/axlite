@@ -16,6 +16,7 @@
 - [Conclusion](#conclusion)
 - [Contributing](#contributing)
 - [Author](#author)
+- [License](#license)
 
 ### Features:
 
@@ -540,6 +541,14 @@ authRouter
 ## Conclusion
 
 `exlite` is a powerful tool designed to simplify and enhance Express.js applications by providing essential features out of the box. Whether you’re building a simple API or a complex web application, `exlite` helps you maintain clean and manageable code.
+
+## Contributing
+
+Contributions are highly appreciated! To contribute:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Submit a pull request with a clear description of your changes.
 
 ## Author
 
