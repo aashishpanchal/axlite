@@ -1,5 +1,8 @@
 # ExLite
 
+[![npm downloads](https://img.shields.io/npm/dm/exlite.svg)](https://www.npmjs.com/package/exlite)
+[![npm version](https://img.shields.io/npm/v/exlite.svg)](https://www.npmjs.com/package/exlite)
+
 `exlite` is a lightweight utility library for Express.js that simplifies common server-side tasks.
 
 ## Table of Contents
