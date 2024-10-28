@@ -1,0 +1,60 @@
+{
+  "name": "@ap-js/express",
+  "version": "0.0.1",
+  "description": "A utility library designed to simplify and enhance Express.js applications.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/index.mjs",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=16.20.1"
+  },
+  "scripts": {
+    "build": "rimraf dist && tsup src/index.ts --format cjs,esm --dts --clean",
+    "format": "prettier --write \"./src/**/*.{ts,js}\"",
+    "lint": "eslint \"./src/**/*.{ts,js}\" --fix",
+    "clean": "rimraf dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aashishpanchal/exlite.git"
+  },
+  "author": "Aashish Panchal <aipanchal51@gmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "express": "^4.21.0",
+    "tsyringe": "^4.8.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.8.1",
+    "eslint": "8.57.1",
+    "eslint-define-config": "^2.1.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "@typescript-eslint/parser": "^8.11.0",
+    "@typescript-eslint/eslint-plugin": "^8.11.0",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.3.5",
+    "typescript": "~5.5.4"
+  },
+  "keywords": [
+    "express",
+    "helper",
+    "utility",
+    "tsyringe",
+    "http-status",
+    "http-errors"
+  ],
+  "homepage": "https://github.com/aashishpanchal/exlite#readme"
+}
