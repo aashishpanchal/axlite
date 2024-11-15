@@ -11,18 +11,18 @@
 - [Features](#features-✨)
 - [Installation](#installation-📥)
 - [Quick Start](#quick-start-⚡)
-- [Error Handler Middleware: `globalErrorHandler`](#error-handler-middleware-httperrorhandler-🚨)
+- [Error Handler Middleware: `globalErrorHandler`](#error-handler-middleware-globalerrorhandler-🚨)
 - [Wrapper: Simplifying Controllers](#wrapper-simplifying-controllers-🛠️)
-- [Standardized JSON Responses with `ApiRes`](#standardized-json-responses-with-apires-✅)
+- [Standardized JSON Responses with `ApiRes`](#standardized-json-responses-with-apires-📊)
 - [HttpError](#httperror-❌)
-- [HttpStatus](#httpstatus-📊)
+- [HttpStatus](#httpstatus-✅)
 - [Controller Class with `createController`](#controller-class-with-createcontroller-🎛️)
 - [Conclusion](#conclusion-🏁)
 - [Contributing](#contributing-🤝)
 - [Author](#author-👤)
 - [License](#license-📜)
 
-### Features ✨:
+### Features ✨
 
 - 🚦 Simplifies route and controller management with pre-built helpers.
 - 🛡️ Integrated error handling across all routes and middleware.
