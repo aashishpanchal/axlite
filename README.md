@@ -1,51 +1,50 @@
-# ExLite
+# 🚀 ExLite
 
 [![npm downloads](https://img.shields.io/npm/dm/exlite.svg)](https://www.npmjs.com/package/exlite)
 [![npm version](https://img.shields.io/npm/v/exlite.svg)](https://www.npmjs.com/package/exlite)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 `exlite` is a lightweight utility library for Express.js that simplifies common server-side tasks.
 
-## Table of Contents
+## Table of Contents 📚
 
 - [Features](#features)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
-- [Error Handler Middleware: `httpErrorHandler`](#error-handler-middleware-httperrorhandler)
+- [Error Handler Middleware: `globalErrorHandler`](#error-handler-middleware-httperrorhandler)
 - [Wrapper: Simplifying Controllers](#wrapper-simplifying-controllers)
-- [Http-Error](#http-error)
-- [Http-Status](#http-status)
 - [Standardized JSON Responses with `ApiRes`](#standardized-json-responses-with-apires)
+- [HttpError](#httperror)
+- [HttpStatus](#httpstatus)
 - [Controller Class with `createController`](#controller-class-with-createcontroller)
 - [Conclusion](#conclusion)
 - [Contributing](#contributing)
 - [Author](#author)
 - [License](#license)
 
-### Features:
+### Features ✨:
 
-- Simplifies route and controller management with pre-built helpers.
-- Integrated error handling across all routes and middleware.
-- Easy-to-use wrapper for automatically catching and handling errors.
-- Customizable response formatting for consistent API outputs.
-- Built-in support for dependency injection with [`tsyringe`](https://github.com/Microsoft/tsyringe).
-- Flexible error handling with custom error classes.
-- Efficient management of HTTP status codes and responses.
+- 🚦 Simplifies route and controller management with pre-built helpers.
+- 🛡️ Integrated error handling across all routes and middleware.
+- ✨ Easy-to-use wrapper for automatically catching and handling errors.
+- 📜 Customizable response formatting for consistent API outputs.
+- 🧩 Built-in support for dependency injection with [`tsyringe`](https://github.com/Microsoft/tsyringe).
+- ⚡ Flexible error handling with custom error classes.
+- 🎨 Efficient management of HTTP status codes and responses.
 
-### Installation
-
-Install by **`npm`**
+### Installation 📥
 
 ```bash
 npm install --save exlite
 ```
 
-## Quick Start
+## Quick Start ⚡
 
 Here’s a minimal setup to get you started with `exlite`:
 
 ```typescript
 import express from 'express';
-import {wrapper, httpErrorHandler} from 'exlite';
+import {wrapper, globalErrorHandler} from 'exlite';
 
 const app = express();
 
@@ -62,16 +61,21 @@ const getUser = wrapper(async (req, res) => {
 app.get('/user/:id', getUser);
 
 // Error handling middleware
-app.use(httpErrorHandler());
+app.use(
+  globalErrorHandler({
+    isDev: process.env.NODE_ENV === 'development',
+    write: error => console.error(error),
+  }),
+);
 
 app.listen(3000, () => {
   console.log('Server running on port 3000');
 });
 ```
 
-## Error Handler Middleware: `httpErrorHandler`
+## Error Handler Middleware: `globalErrorHandler` 🚨
 
-`httpErrorHandler({dev: boolean, log?: (err) => void}): ErrorRequestHandler` Global error handler middleware that manages `HttpErrors` and unknown errors, returning appropriate JSON responses.
+The `globalErrorHandler` middleware manages `HttpErrors` and unknown errors, returning appropriate JSON responses.
 
 **Usage:**
 
@@ -79,27 +83,34 @@ app.listen(3000, () => {
 import {errorHandler} from 'exlite';
 
 // Basic usage with default options
-app.use(httpErrorHandler({dev: process.env.NODE_ENV !== 'production'}));
+app.use(
+  globalErrorHandler({
+    isDev: process.env.NODE_ENV === 'development',
+  }),
+);
 
 // Custom usage with logging in production mode
 app.use(
-  httpErrorHandler({
-    dev: process.env.NODE_ENV !== 'production',
-    log: err => logger.error(err),
+  globalErrorHandler({
+    isDev: process.env.NODE_ENV === 'development',
+    write: error => console.error(error),
   }),
 );
 ```
 
-_Note:_
+**Signature:**  
+`globalErrorHandler({isDev: boolean, write?: (err) => void}): ErrorRequestHandler`
 
-- _`dev` is a flag that indicates whether the application is running in development mode. If true, error responses will include detailed information like the error message and stack trace. Defaults to true._
-- _`write` is an optional callback function that logs or processes unknown errors. This can be used to log errors to a file or an external service for further inspection._
+**Options:**
 
-## Wrapper: Simplifying Controllers
+- **`isDev`**: Enables detailed error messages in development mode (default: `true`).
+- **`write`**: Optional callback for logging or handling errors.
 
-In Express.js applications, request handler functions typically require `try-catch` blocks for error handling. This often results in repetitive, boilerplate code across route handlers. The `wrapper` function in `exlite` solves this issue by automatically managing `try-catch` behaviour for both async and sync functions. and provide other handler of features.
+## Wrapper: Simplifying Controllers 🛠️
 
-**Usage:**
+The `wrapper` function in `exlite` eliminates repetitive `try-catch` blocks by managing error handling for both async and sync functions. It also integrates seamlessly with `ApiRes` for enhanced response handling. and provide other handler of features.
+
+#### Simplifying Route Handlers
 
 ```typescript
 import {wrapper, ApiRes} from 'exlite';
@@ -124,7 +135,7 @@ app.get(
 );
 ```
 
-- **Example of manipulating cookies and header, etc with `ApiRes`**
+#### Advanced Example: Handling Cookies and Headers
 
 ```typescript
 const login = wrapper(async (req, res) => {
@@ -152,181 +163,65 @@ const login = wrapper(async (req, res) => {
 });
 ```
 
-- **Example without `ApiRes`**
+#### Minimal Examples
 
-```typescript
-// 1. example
-const getHome = wrapper(() => 'Hello World!');
-// 2. example
-const getHome = wrapper(() => ({message: 'Hello World!'}));
-// 3. example
-const login = wrapper(async (req, res) => {
-  const user = await getUserById(req.params.id);
-
-  // Manually setting headers
-  res.setHeader('X-Custom-Header', 'SomeHeaderValue');
-
-  // Setting cookies
-  res.cookie('access-token', user.accessToken, {
-    httpOnly: true,
-    secure: true, // Set to true in production with HTTPS
-    maxAge: 3600000, // 1 hour
+- **Simple Response:**
+  ```typescript
+  const getHome = wrapper(() => 'Hello World!');
+  ```
+- **Custom JSON Response:**
+  ```typescript
+  const getHome = wrapper(() => ({message: 'Hello World!'}));
+  ```
+- **Without `ApiRes`**
+  ```typescript
+  const login = wrapper(async (req, res) => {
+    const user = await getUserById(req.params.id);
+    // Manually setting headers
+    res.setHeader('X-Custom-Header', 'SomeHeaderValue');
+    // Setting cookies
+    res.cookie('access-token', user.accessToken, {
+      httpOnly: true,
+      secure: true, // Set to true in production with HTTPS
+      maxAge: 3600000, // 1 hour
+    });
+    // Sending a custom JSON response
+    return res.status(200).json({
+      status: 'success',
+      message: 'User fetched successfully',
+      data: user,
+    });
   });
+  ```
 
-  // Sending a custom JSON response
-  return res.status(200).json({
-    status: 'success',
-    message: 'User fetched successfully',
-    data: user,
-  });
-});
-```
-
-- **Example as `middleware`**
+#### Middleware Example: Role-Based Access Control
 
 ```typescript
 import {Role} from './constants';
 import {wrapper, ForbiddenError} from 'exlite';
 
-/** user permission middleware */
+/** Permission middleware */
 export const permission = (...roles: Role[]) =>
   wrapper(async (req, _, next) => {
     const {user} = req;
 
-    if (!roles || !user) return false;
-
-    const checker = user && roles.includes(user?.role);
-
-    if (!checker)
-      throw new ForbiddenError(
-        `User have not permission to access ${req.originalUrl}`,
-      );
+    if (!roles.includes(user?.role))
+      throw new ForbiddenError(`Access denied for ${req.originalUrl}`);
 
     next();
   });
 
-// all permission middleware
 export const onlyAdmin = permission(Role.ADMIN);
 export const adminOrUser = permission(Role.ADMIN, Role.USER);
 ```
 
-## Http-Error
+**Benefits:**
 
-The `HttpError` class standardizes error handling by extending the native `Error` class. It’s used to throw HTTP-related errors, which are then caught by the `httpErrorHandler` middleware.
+- Eliminates boilerplate `try-catch` logic.
+- Simplifies response handling with `ApiRes`.
+- Works seamlessly for both request handlers and middleware.
 
-**Usage:**
-
-```typescript
-import {HttpError, HttpStatus} from 'exlite';
-
-// Example without wrapper
-app.get('*', () => {
-  throw new HttpError('Not Found', HttpStatus.NOT_FOUND); // Throw a 404 error
-});
-
-// Example with wrapper
-app.post(
-  '/example',
-  wrapper(req => {
-    if (!req.body.name) throw new BadRequestError('Name is required');
-  }),
-);
-```
-
-**HttpError(msg, status, details)**
-
-- `msg` - this parameter accepts an error message, which can be a single string or an array of strings., `required`
-- `status` - the status code of the error, mirroring `statusCode` for general compatibility, default is `500`
-- `detail` - this is an `optional` plain object that contains additional information about the error.
-
-```typescript
-const err = new HttpError('Validation error.', 400, {
-  username: 'Username is required',
-  password: 'Password is required',
-});
-```
-
-**Provide build common http-errors.**
-
-- `BadRequestError`
-- `UnAuthorizedError`
-- `NotFoundError`
-- `ConflictError`
-- `ForbiddenError`
-- `PaymentRequiredError`
-- `NotImplementedError`
-- `InternalServerError`
-
-_Note: If only provides a status code, the `HttpError` class will automatically generate an appropriate error name based on that status code._
-
-**`createError.isHttpError(value)`**
-
-The `HttpError.isHttpError(value)` method is a useful way to determine if a specific value is an instance of the `HttpError` class. It will return `true` if the value is derived from the `HttpError` constructor, allowing you to easily identify HTTP-related errors in your application.
-
-```typescript
-// If it is an HttpError, send a JSON response with the error details
-if (HttpError.isHttpError(err))
-  return res.status(err.status).json(err.toJson());
-else {
-  // If it's not an HttpError, pass it to the next middleware for further handling
-  next(err);
-}
-```
-
-### Error Properties
-
-When you create an instance of `HttpError`, it comes with several useful properties that help provide context about the error:
-
-- **`status`**: The HTTP status code associated with the error (e.g., 404 for Not Found, 500 for Internal Server Error).
-- **`message`**: A brief description of the error, which is useful for debugging and logging.
-- **`stack`**: The stack trace of the error, available when the application is in development mode. This helps identify where the error occurred in your code.
-- **`details`**: An optional property that can hold additional information about the error, such as validation issues or other relevant data.
-
-### Custom ErrorHandler Middleware
-
-```typescript
-export const errorHandler: ErrorRequestHandler = (err, req, res, next): any => {
-  // Handle known HttpError instances
-  if (HttpError.isHttpError(err))
-    return res.status(err.status).json(err.toJson());
-
-  // Log unknown errors
-  logger.error(err);
-
-  // Create an InternalServerError for unknown errors
-  const error = new InternalServerError(
-    config.dev ? err.message : 'Something went wrong',
-    config.dev ? err.stack : null,
-  );
-  return res.status(error.status).json(error.toJson());
-};
-```
-
-### `toJson` Static Method
-
-The `toJson` method is a static function that allows you to convert an `HttpError` instance into a structured JSON format. This is particularly useful for standardizing error responses sent to clients. When you call `toJson`, it returns an object containing the following properties:
-
-- **`status`**: The HTTP status code of the error.
-- **`message`**: A human-readable message describing the error.
-- **`details`** (if applicable): Any additional information that provides context about the error.
-
-This method ensures that your API consistently responds to errors in a uniform way, making it easier for clients to understand and handle error responses.
-
-## Http-Status
-
-The `HttpStatus` is utility to interact with HTTP status codes. **(2xx, 3xx, 4xx and 5xx)**.
-
-**Usage:**
-
-```typescript
-import {HttpStatus} from 'exlite';
-
-app.get('/status-example', (req, res) => {
-  res.status(HttpStatus.OK).json({message: 'All good!'});
-});
-```
-
-## Standardized JSON Responses with `ApiRes`
+## Standardized JSON Responses with `ApiRes` 📊
 
 `ApiRes` provides a consistent structure for API responses. It includes several static methods that handle common response patterns, such as `ok`, `created` `paginated`.
 
@@ -364,7 +259,218 @@ app.route('/:id').get(get);
 - `created(result, message)`: Returns a resource creation response (HTTP 201).
 - `paginated(data, meta, message)`: Returns a success response (HTTP 200).
 
-## Controller Class with `createController`
+## HttpError ❌
+
+The `HttpError` class standardizes error handling by extending the native `Error` class. It’s used to throw HTTP-related errors, which are then caught by the `httpErrorHandler` middleware.
+
+**Usage:**
+
+```typescript
+import {HttpError, HttpStatus} from 'exlite';
+
+// Example without wrapper
+app.get('*', () => {
+  throw new HttpError('Not Found', HttpStatus.NOT_FOUND); // Throw a 404 error
+});
+
+// Example with wrapper
+app.post(
+  '/example',
+  wrapper(req => {
+    if (!req.body.name) throw new BadRequestError('Name is required');
+  }),
+);
+```
+
+**HttpError(msg, status, details)**
+
+- `msg` - this parameter accepts an error message, which can be a single string or an array of strings., `required`
+- `status` - the status code of the error, mirroring `statusCode` for general compatibility, default is `500`
+- `detail` - this is an `optional` plain object that contains additional information about the error.
+
+```typescript
+const err = new HttpError('Validation error.', 400, {
+  username: 'Username is required',
+  password: 'Password is required',
+});
+```
+
+#### Provide build common http-errors.
+
+- `BadRequestError`
+- `UnAuthorizedError`
+- `NotFoundError`
+- `ConflictError`
+- `ForbiddenError`
+- `PaymentRequiredError`
+- `NotImplementedError`
+- `InternalServerError`
+
+_Note: If only provides a status code, the `HttpError` class will automatically generate an appropriate error name based on that status code._
+
+#### **`isHttpError(value)` Static Method**
+
+The `HttpError.isHttpError(value)` method is a useful way to determine if a specific value is an instance of the `HttpError` class. It will return `true` if the value is derived from the `HttpError` constructor, allowing you to easily identify HTTP-related errors in your application.
+
+```typescript
+// If it is an HttpError, send a JSON response with the error details
+if (HttpError.isHttpError(err))
+  return res.status(err.status).json(err.toJson());
+else {
+  // If it's not an HttpError, pass it to the next middleware for further handling
+  next(err);
+}
+```
+
+#### Error Properties
+
+When you create an instance of `HttpError`, it comes with several useful properties that help provide context about the error:
+
+- **`status`**: The HTTP status code associated with the error (e.g., 404 for Not Found, 500 for Internal Server Error).
+- **`message`**: A brief description of the error, which is useful for debugging and logging.
+- **`stack`**: The stack trace of the error, available when the application is in development mode. This helps identify where the error occurred in your code.
+- **`details`**: An optional property that can hold additional information about the error, such as validation issues or other relevant data.
+
+#### Custom ErrorHandler Middleware
+
+```typescript
+export const errorHandler: ErrorRequestHandler = (err, req, res, next): any => {
+  // Handle known HttpError instances
+  if (HttpError.isHttpError(err))
+    return res.status(err.status).json(err.toJson());
+
+  // Log unknown errors
+  console.error(err);
+
+  // Create an InternalServerError for unknown errors
+  const error = new InternalServerError(
+    config.dev ? err.message : 'Something went wrong',
+    config.dev ? err.stack : null,
+  );
+  return res.status(error.status).json(error.toJson());
+};
+```
+
+#### `toJson` Static Method
+
+The `toJson` method is a static function that allows you to convert an `HttpError` instance into a structured JSON format. This is particularly useful for standardizing error responses sent to clients. When you call `toJson`, it returns an object containing the following properties:
+
+- **`status`**: The HTTP status code of the error.
+- **`message`**: A human-readable message describing the error.
+- **`details`** (if applicable): Any additional information that provides context about the error.
+
+This method ensures that your API consistently responds to errors in a uniform way, making it easier for clients to understand and handle error responses.
+
+## HttpStatus ✅
+
+The `HttpStatus` provides readable constants for standard HTTP status codes (2xx, 3xx, 4xx, 5xx), improving code clarity and consistency.
+
+**Usage:**
+
+```typescript
+import {HttpStatus} from 'exlite';
+
+// Example: Basic usage in a route
+app.get('/status-example', (req, res) => {
+  res.status(HttpStatus.OK).json({message: 'All good!'});
+});
+
+// Example: Custom error handling middleware
+app.use((req, res) => {
+  res.status(HttpStatus.NOT_FOUND).json({
+    error: 'Resource not found',
+  });
+});
+
+// Example: Response with a 201 Created status
+app.post('/create', (req, res) => {
+  const resource = createResource(req.body);
+  res.status(HttpStatus.CREATED).json({
+    message: 'Resource created successfully',
+    data: resource,
+  });
+});
+```
+
+#### `HttpStatus.NAMES` of HTTP Status Codes
+
+The `NAMES` object provides a simple lookup for the descriptive names of HTTP status codes:
+
+```typescript
+const statusName = HttpStatus.NAMES.$200; // 'OK'
+```
+
+**Benefits:**
+
+- Improves code readability and maintainability.
+- Reduces dependency on remembering or looking up numeric codes.
+- Ensures consistent use of status codes throughout your application.
+
+**Below is a list of commonly used HTTP status codes, their respective constants, and descriptions for easier reference:**
+
+#### **2xx: Success**
+
+- **`HttpStatus.OK`**: 200 — Request succeeded.
+- **`HttpStatus.CREATED`**: 201 — Resource created.
+- **`HttpStatus.ACCEPTED`**: 202 — Request accepted for processing.
+- **`HttpStatus.NON_AUTHORITATIVE_INFORMATION`**: 203 — Non-authoritative information.
+- **`HttpStatus.NO_CONTENT`**: 204 — No content to send.
+- **`HttpStatus.RESET_CONTENT`**: 205 — Content reset.
+- **`HttpStatus.PARTIAL_CONTENT`**: 206 — Partial content delivered.
+
+#### **3xx: Redirection**
+
+- **`HttpStatus.AMBIGUOUS`**: 300 — Multiple choices available.
+- **`HttpStatus.MOVED_PERMANENTLY`**: 301 — Resource moved permanently.
+- **`HttpStatus.FOUND`**: 302 — Resource found at another URI.
+- **`HttpStatus.SEE_OTHER`**: 303 — See other resource.
+- **`HttpStatus.NOT_MODIFIED`**: 304 — Resource not modified.
+- **`HttpStatus.TEMPORARY_REDIRECT`**: 307 — Temporary redirect.
+- **`HttpStatus.PERMANENT_REDIRECT`**: 308 — Permanent redirect.
+
+#### **4xx: Client Error**
+
+- **`HttpStatus.BAD_REQUEST`**: 400 — Bad request.
+- **`HttpStatus.UNAUTHORIZED`**: 401 — Authentication required.
+- **`HttpStatus.PAYMENT_REQUIRED`**: 402 — Payment required.
+- **`HttpStatus.FORBIDDEN`**: 403 — Access forbidden.
+- **`HttpStatus.NOT_FOUND`**: 404 — Resource not found.
+- **`HttpStatus.METHOD_NOT_ALLOWED`**: 405 — Method not allowed.
+- **`HttpStatus.NOT_ACCEPTABLE`**: 406 — Not acceptable content.
+- **`HttpStatus.PROXY_AUTHENTICATION_REQUIRED`**: 407 — Proxy authentication required.
+- **`HttpStatus.REQUEST_TIMEOUT`**: 408 — Request timed out.
+- **`HttpStatus.CONFLICT`**: 409 — Conflict with current state.
+- **`HttpStatus.GONE`**: 410 — Resource gone.
+- **`HttpStatus.LENGTH_REQUIRED`**: 411 — Length required.
+- **`HttpStatus.PRECONDITION_FAILED`**: 412 — Precondition failed.
+- **`HttpStatus.PAYLOAD_TOO_LARGE`**: 413 — Payload too large.
+- **`HttpStatus.URI_TOO_LONG`**: 414 — URI too long.
+- **`HttpStatus.UNSUPPORTED_MEDIA_TYPE`**: 415 — Unsupported media type.
+- **`HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE`**: 416 — Requested range not satisfiable.
+- **`HttpStatus.EXPECTATION_FAILED`**: 417 — Expectation failed.
+- **`HttpStatus.I_AM_A_TEAPOT`**: 418 — I'm a teapot (a joke HTTP status).
+- **`HttpStatus.MISDIRECTED_REQUEST`**: 421 — Misdirected request.
+- **`HttpStatus.UNPROCESSABLE_ENTITY`**: 422 — Unprocessable entity.
+- **`HttpStatus.FAILED_DEPENDENCY`**: 424 — Failed dependency.
+- **`HttpStatus.PRECONDITION_REQUIRED`**: 428 — Precondition required.
+- **`HttpStatus.TOO_MANY_REQUESTS`**: 429 — Too many requests.
+
+#### **5xx: Server Error**
+
+- **`HttpStatus.INTERNAL_SERVER_ERROR`**: 500 — Internal server error.
+- **`HttpStatus.NOT_IMPLEMENTED`**: 501 — Not implemented.
+- **`HttpStatus.BAD_GATEWAY`**: 502 — Bad gateway.
+- **`HttpStatus.SERVICE_UNAVAILABLE`**: 503 — Service unavailable.
+- **`HttpStatus.GATEWAY_TIMEOUT`**: 504 — Gateway timeout.
+- **`HttpStatus.HTTP_VERSION_NOT_SUPPORTED`**: 505 — HTTP version not supported.
+- **`HttpStatus.VARIANT_ALSO_NEGOTIATES`**: 506 — Variant also negotiates.
+- **`HttpStatus.INSUFFICIENT_STORAGE`**: 507 — Insufficient storage.
+- **`HttpStatus.LOOP_DETECTED`**: 508 — Loop detected.
+- **`HttpStatus.BANDWIDTH_LIMIT_EXCEEDED`**: 509 — Bandwidth limit exceeded.
+- **`HttpStatus.NOT_EXTENDED`**: 510 — Not extended.
+- **`HttpStatus.NETWORK_AUTHENTICATION_REQUIRED`**: 511 — Network authentication required.
+
+## Controller Class with `createController` 🎛️
 
 Creating class-based controllers in Express.js can be complex due to the need for managing instance methods, binding this context, and handling dependencies. Traditional middleware functions typically rely on plain functions, making it challenging to encapsulate logic and state effectively in a class-based structure.
 
@@ -385,7 +491,7 @@ const controller = createController(Controller, false);
 const handler = controller.getMethod('class-method-name');
 ```
 
-- Controller `class`
+#### Controller `class`
 
 ```typescript
 // auth.controller.ts
@@ -411,7 +517,7 @@ export class AuthController {
 }
 ```
 
-- Router configuration
+#### Router configuration
 
 ```jsx
 // auth.routes.ts
@@ -467,7 +573,7 @@ const controller = createController(Controller); // Using tsyringe
 const handler = controller.getMethod('class-method-name');
 ```
 
-- Service `class`
+#### Service `class`
 
 ```typescript
 // auth.service.ts
@@ -485,7 +591,7 @@ export class AuthService {
 }
 ```
 
-- Controller `class`
+#### Controller `class`
 
 ```typescript
 // auth.controller.ts
@@ -519,7 +625,7 @@ export class AuthController {
 }
 ```
 
-- Router configuration
+#### Router configuration
 
 ```typescript
 // auth.routes.ts
@@ -541,11 +647,11 @@ authRouter
 
 **_Note:_** _The `createController` is an feature that allows you to use `tsyringe` for dependency injection in your controllers. This is especially useful for larger applications where different services need to be injected into controllers._
 
-## Conclusion
+## Conclusion 🏁
 
 `exlite` is a powerful tool designed to simplify and enhance Express.js applications by providing essential features out of the box. Whether you’re building a simple API or a complex web application, `exlite` helps you maintain clean and manageable code.
 
-## Contributing
+## Contributing 🤝
 
 Contributions are highly appreciated! To contribute:
 
@@ -553,11 +659,11 @@ Contributions are highly appreciated! To contribute:
 2. Create a new branch for your feature or bug fix.
 3. Submit a pull request with a clear description of your changes.
 
-## Author
+## Author 👤
 
 - Created by **Aashish Panchal**.
 - GitHub: [@aashishpanchal](https://github.com/aashishpanchal)
 
-## License
+## License 📜
 
 [MIT © Aashish Panchal ](LICENSE)
