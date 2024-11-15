@@ -8,7 +8,7 @@
 
 ## Table of Contents 📚
 
-- [Features](#✨-features)
+- [Features](#features-✨)
 - [Installation](#installation-📥)
 - [Quick Start](#quick-start-⚡)
 - [Error Handler Middleware: `globalErrorHandler`](#error-handler-middleware-globalerrorhandler-🚨)
@@ -22,7 +22,7 @@
 - [Author](#author-👤)
 - [License](#license-📜)
 
-### ✨ Features
+### Features ✨
 
 - 🚦 Simplifies route and controller management with pre-built helpers.
 - 🛡️ Integrated error handling across all routes and middleware.
