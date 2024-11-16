@@ -8,19 +8,19 @@
 
 ## Table of Contents 📚
 
-- [Features](#features-✨)
-- [Installation](#installation-📥)
-- [Quick Start](#quick-start-⚡)
-- [Error Handler Middleware: `globalErrorHandler`](#error-handler-middleware-globalerrorhandler-🚨)
-- [Wrapper: Simplifying Controllers](#wrapper-simplifying-controllers-🛠️)
-- [Standardized JSON Responses with `ApiRes`](#standardized-json-responses-with-apires-📊)
-- [HttpError](#httperror-❌)
-- [HttpStatus](#httpstatus-✅)
-- [Controller Class with `createController`](#controller-class-with-createcontroller-🎛️)
-- [Conclusion](#conclusion-🏁)
-- [Contributing](#contributing-🤝)
-- [Author](#author-👤)
-- [License](#license-📜)
+- [Features ✨](#features-)
+- [Installation 📥](#installation-)
+- [Quick Start ⚡](#quick-start-)
+- [Error Handler Middleware: `globalErrorHandler` 🚨](#error-handler-middleware-globalerrorhandler-)
+- [Wrapper: Simplifying Controllers 🛠️](#wrapper-simplifying-controllers-)
+- [Standardized JSON Responses with `ApiRes` 📊](#standardized-json-responses-with-apires-)
+- [HttpError ❌](#httperror-)
+- [HttpStatus ✅](#httpstatus-)
+- [Controller Class with `createController` 🎛️](#controller-class-with-createcontroller-)
+- [Conclusion 🏁](#conclusion-)
+- [Contributing 🤝](#contributing-)
+- [Author 👤](#author-)
+- [License 📜](#license-)
 
 ### Features ✨
 
