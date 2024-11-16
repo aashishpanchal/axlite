@@ -16,7 +16,7 @@
 - [Standardized JSON Responses with `ApiRes` 📊](#standardized-json-responses-with-apires-)
 - [HttpError ❌](#httperror-)
 - [HttpStatus ✅](#httpstatus-)
-- [Controller Class with `createController` 🎛️](#controller-class-with-createcontroller-)
+- [Controller Class with `createController`](#controller-class-with-createcontroller)
 - [Conclusion 🏁](#conclusion-)
 - [Contributing 🤝](#contributing-)
 - [Author 👤](#author-)
@@ -392,7 +392,7 @@ app.post('/create', (req, res) => {
 });
 ```
 
-#### `HttpStatus.NAMES` of HTTP Status Codes
+#### `HttpStatus.NAMES` of HTTP Status Code Name
 
 The `NAMES` object provides a simple lookup for the descriptive names of HTTP status codes:
 
@@ -470,7 +470,7 @@ const statusName = HttpStatus.NAMES.$200; // 'OK'
 - **`HttpStatus.NOT_EXTENDED`**: 510 — Not extended.
 - **`HttpStatus.NETWORK_AUTHENTICATION_REQUIRED`**: 511 — Network authentication required.
 
-## Controller Class with `createController` 🎛️
+## Controller Class with `createController`
 
 Creating class-based controllers in Express.js can be complex due to the need for managing instance methods, binding this context, and handling dependencies. Traditional middleware functions typically rely on plain functions, making it challenging to encapsulate logic and state effectively in a class-based structure.
 
