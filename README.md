@@ -10,7 +10,7 @@
 
 ## Table of Contents 📚
 
-- [Features ✨](#features-)
+- [Features](#features-)
 - [Installation 📥](#installation-)
 - [Motivation 💡](#motivation-)
 - [Quick Start ⚡](#quick-start-)
