@@ -2,9 +2,6 @@ import {ApiRes} from './api-res';
 import type {Response} from 'express';
 import type {ReqHandler} from './types';
 
-// Define the type for constructors
-type Constructor<T> = new (...args: any[]) => T;
-
 /**
  * Sends the appropriate response based on the result of the function.
  *
@@ -45,65 +42,3 @@ export const wrapper =
       next(error);
     }
   };
-
-/**
- * Resolves an instance of a class using tsyringe for dependency injection.
- * If tsyringe is not installed, it throws an error and terminates the process.
- *
- * @param {Constructor<T>} cls - The class constructor to resolve an instance of.
- * @returns {T} - An instance of the given class resolved by tsyringe's container.
- *
- * @throws If tsyringe is not installed, the process will exit with an error message.
- *
- * @example
- * const instance = resolver(AuthService);
- */
-const resolver = <T>(cls: Constructor<T>): T => {
-  let tsyringe: any = null;
-  try {
-    tsyringe = require('tsyringe');
-  } catch (error) {
-    console.log(
-      'tsyringe is not installed. please install it, using package manager.',
-    );
-    console.log(error);
-    process.exit(1);
-  }
-  // Resolve the class instance from the tsyringe container
-  return tsyringe.container.resolve(cls);
-};
-
-/**
- * Creates an object to manage controller methods for routes.
- *
- * @param {Constructor<T>} cls - The controller class to create an instance of.
- * @param {boolean} [local=false] - If true, creates a local instance; otherwise, uses tsyringe for DI.
- * @returns {object} - An object with the `getMethod` function to retrieve controller methods.
- *
- * @example
- * const auth = createController(AuthController);
- * app.post('/login', auth.getMethod('login'));
- */
-export const createController = <T>(
-  cls: Constructor<T>,
-  local: boolean = false,
-): object => {
-  const instance = local ? new cls() : resolver(cls);
-  return {
-    /**
-     * Gets and wraps a method from the controller for routing.
-     *
-     * @param {keyof T} key - The method name to retrieve.
-     * @returns {ReqHandler} - A wrapped and bound request handler.
-     */
-    getMethod: <K extends keyof T>(key: K): ReqHandler => {
-      const handler = instance[key];
-      if (typeof handler !== 'function') {
-        throw new Error(
-          `Handler ${key as string} is not a function of ${instance.constructor.name}`,
-        );
-      }
-      return wrapper(handler.bind(instance));
-    },
-  };
-};
