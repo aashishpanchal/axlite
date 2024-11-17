@@ -3,7 +3,7 @@ import {HttpError, InternalServerError} from './errors';
 
 type Options = {
   isDev?: boolean;
-  write?: (err: unknown) => void;
+  write?: (error: unknown) => void;
 };
 
 /**
@@ -21,16 +21,15 @@ type Options = {
  *
  * @example
  * // Basic usage with default options:
- * app.use(httpErrorHandler({ isDev: process.env.NODE_ENV !== 'production' }));
+ * app.use(globalErrorHandler({ isDev: process.env.NODE_ENV !== 'production' }));
  *
  * // Custom usage with a logging function in production mode:
- * app.use(httpErrorHandler({
+ * app.use(globalErrorHandler({
  *  isDev: process.env.NODE_ENV !== 'production',
- *  write: err => logger.error(err)
+ *  write: error => console.error(error)
  * }));
  */
-
-export const httpErrorHandler = (
+export const globalErrorHandler = (
   options: Options = {},
 ): ErrorRequestHandler => {
   const {isDev = true, write = undefined} = options;

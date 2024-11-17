@@ -1,6 +1,9 @@
 import {ApiRes} from './api-res';
 import type {Response} from 'express';
-import type {Constructor, ReqHandler} from './types';
+import type {ReqHandler} from './types';
+
+// Define the type for constructors
+type Constructor<T> = new (...args: any[]) => T;
 
 /**
  * Sends the appropriate response based on the result of the function.
@@ -53,9 +56,9 @@ export const wrapper =
  * @throws If tsyringe is not installed, the process will exit with an error message.
  *
  * @example
- * const instance = resolveInstance(AuthService);
+ * const instance = resolver(AuthService);
  */
-const resolveInstance = <T>(cls: Constructor<T>): T => {
+const resolver = <T>(cls: Constructor<T>): T => {
   let tsyringe: any = null;
   try {
     tsyringe = require('tsyringe');
@@ -71,62 +74,36 @@ const resolveInstance = <T>(cls: Constructor<T>): T => {
 };
 
 /**
- * Validates and retrieves a controller method.
- *
- * @param {T} instance - The controller instance.
- * @param {keyof T} key - The method key (name) to retrieve from the controller instance.
- * @returns {ReqHandler} - The wrapped request handler function for the method.
- *
- * @throws If the provided key is not a function, it throws an error.
- *
- * @example
- * const handler = getControllerMethod(authController, 'login');
- * app.post('/login', handler); // Binds and wraps the login method from the authController
- */
-export const getControllerMethod = <T>(
-  instance: T,
-  key: keyof T,
-): ReqHandler => {
-  const handler = instance[key]; // It retrieves the controller's method,
-  // Ensure the handler is a function
-  if (typeof handler !== 'function')
-    throw new Error(
-      `Handler ${key as string} is not a function of ${instance.constructor.name}`,
-    );
-  return wrapper(handler.bind(instance));
-};
-
-/**
- * Creates a wrapped controller method for Express routes.
- * - If `useTsyringe` is true or omitted, it resolves the controller class using tsyringe's container.
- * - If `useTsyringe` is false, it creates a local instance of the controller class without using tsyringe.
+ * Creates an object to manage controller methods for routes.
  *
  * @param {Constructor<T>} cls - The controller class to create an instance of.
- * @param {boolean} [useTsyringe=true] - Optional flag to use tsyringe for dependency injection (default: true).
+ * @param {boolean} [local=false] - If true, creates a local instance; otherwise, uses tsyringe for DI.
+ * @returns {object} - An object with the `getMethod` function to retrieve controller methods.
  *
  * @example
- * // Using tsyringe for dependency injection:
  * const auth = createController(AuthController);
- * app.get('/login', auth.getMethod('login')); // Assuming 'login' is a method in AuthController
- *
- * // Creating a local instance without tsyringe:
- * const blog = createController(BlogController, false);
- * app.get('/posts', blog.getMethod('getPosts')); // Assuming 'getPosts' is a method in BlogController
+ * app.post('/login', auth.getMethod('login'));
  */
 export const createController = <T>(
   cls: Constructor<T>,
-  useTsyringe: boolean = true,
-) => {
-  const instance = useTsyringe ? resolveInstance(cls) : new cls();
-  // return object
+  local: boolean = false,
+): object => {
+  const instance = local ? new cls() : resolver(cls);
   return {
     /**
-     * Retrieves and wraps a controller method for Express routes.
+     * Gets and wraps a method from the controller for routing.
      *
-     * @param {keyof T} key - The method key (name) to retrieve from the controller instance.
-     * @returns {ReqHandler} - The wrapped request handler function for the method.
+     * @param {keyof T} key - The method name to retrieve.
+     * @returns {ReqHandler} - A wrapped and bound request handler.
      */
-    getMethod: <K extends keyof T>(key: K): ReqHandler =>
-      getControllerMethod(instance, key),
+    getMethod: <K extends keyof T>(key: K): ReqHandler => {
+      const handler = instance[key];
+      if (typeof handler !== 'function') {
+        throw new Error(
+          `Handler ${key as string} is not a function of ${instance.constructor.name}`,
+        );
+      }
+      return wrapper(handler.bind(instance));
+    },
   };
 };

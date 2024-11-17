@@ -31,6 +31,3 @@ export type ReqHandler = (
   res: Response,
   next: NextFunction,
 ) => any;
-
-// Define the type for constructors
-export type Constructor<T> = new (...args: any[]) => T;
