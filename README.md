@@ -11,18 +11,18 @@
 ## Table of Contents 📚
 
 - [Features](#features-)
-- [Installation 📥](#installation-)
-- [Motivation 💡](#motivation-)
-- [Quick Start ⚡](#quick-start-)
-- [Error Handler Middleware: `globalErrorHandler` 🚨](#error-handler-middleware-globalerrorhandler-)
-- [Wrapper: Simplifying Controllers 🛠️](#wrapper-simplifying-controllers-)
-- [Standardized JSON Responses with `ApiRes` 📊](#standardized-json-responses-with-apires-)
-- [HttpError ❌](#httperror-)
-- [HttpStatus ✅](#httpstatus-)
-- [Conclusion 🏁](#conclusion-)
-- [Contributing 🤝](#contributing-)
-- [Author 👤](#author-)
-- [License 📜](#license-)
+- [Installation](#installation-)
+- [Motivation](#motivation-)
+- [Quick Start](#quick-start-)
+- [Error Handler Middleware: `globalErrorHandler`](#error-handler-middleware-globalerrorhandler-)
+- [Wrapper: Simplifying Controllers](#wrapper-simplifying-controllers-️)
+- [Standardized JSON Responses with `ApiRes`](#standardized-json-responses-with-apires-)
+- [HttpError](#httperror-)
+- [HttpStatus](#httpstatus-)
+- [Conclusion](#conclusion-)
+- [Contributing](#contributing-)
+- [Author](#author-)
+- [License](#license-)
 
 ## Features ✨
 
