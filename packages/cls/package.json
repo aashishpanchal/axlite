@@ -1,5 +1,5 @@
 {
-  "name": "@exlite/cls",
+  "name": "@ex-lite/cls",
   "version": "0.0.1",
   "description": "Simple and easy way to make controller with tsyringe",
   "main": "dist/index.js",
