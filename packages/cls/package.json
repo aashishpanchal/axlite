@@ -1,0 +1,57 @@
+{
+  "name": "@exlite/cls",
+  "version": "0.0.1",
+  "description": "Simple and easy way to make controller with tsyringe",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "rimraf dist && tsup src/index.ts --format cjs,esm --dts --clean",
+    "format": "prettier --write \"./src/**/*.{ts,js}\"",
+    "lint": "eslint \"./src/**/*.{ts,js}\" --fix",
+    "clean": "rimraf dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aashishpanchal/exlite.git"
+  },
+  "author": "Aashish Panchal <aipanchal51@gmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "exlite": "0.0.3",
+    "express": "^4.21.0",
+    "tsyringe": "4.8.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.9.0",
+    "@typescript-eslint/eslint-plugin": "^8.14.0",
+    "@typescript-eslint/parser": "^8.14.0",
+    "eslint": "8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.3.5",
+    "typescript": "^5.6.3"
+  },
+  "keywords": [
+    "exlite",
+    "express",
+    "tsyringe",
+    "exlite-cls",
+    "express-cls",
+    "@exlite/cls"
+  ],
+  "homepage": "https://github.com/aashishpanchal/exlite#readme"
+}
