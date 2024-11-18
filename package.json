@@ -1,6 +1,6 @@
 {
-  "name": "axlite",
-  "version": "1.0.2",
+  "name": "exlite",
+  "version": "1.0.3",
   "description": "A utility library designed to simplify and enhance Express.js applications.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aashishpanchal/axlite.git"
+    "url": "git+https://github.com/aashishpanchal/exlite.git"
   },
   "author": "Aashish Panchal <aipanchal51@gmail.com>",
   "license": "MIT",
@@ -49,11 +49,11 @@
   },
   "keywords": [
     "express",
-    "axlite",
+    "exlite",
     "helper",
     "utility",
     "http-status",
     "http-errors"
   ],
-  "homepage": "https://github.com/aashishpanchal/axlite#readme"
+  "homepage": "https://github.com/aashishpanchal/exlite#readme"
 }
