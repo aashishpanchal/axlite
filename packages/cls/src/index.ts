@@ -1,4 +1,4 @@
-import {ReqHandler, wrapper} from 'exlite';
+import {ReqHandler, wrapper} from 'axlite';
 
 // Define the type for constructors
 type Constructor<T> = new (...args: any[]) => T;

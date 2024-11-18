@@ -1,6 +1,6 @@
 {
-  "name": "axpress",
-  "version": "0.0.5",
+  "name": "axlite",
+  "version": "1.0.0",
   "description": "A utility library designed to simplify and enhance Express.js applications.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aashishpanchal/axpress.git"
+    "url": "git+https://github.com/aashishpanchal/axlite.git"
   },
   "author": "Aashish Panchal <aipanchal51@gmail.com>",
   "license": "MIT",
@@ -49,11 +49,12 @@
   },
   "keywords": [
     "express",
+    "axlite",
     "helper",
     "utility",
     "tsyringe",
     "http-status",
     "http-errors"
   ],
-  "homepage": "https://github.com/aashishpanchal/axpress/tree/main/packages/axpress#readme"
+  "homepage": "https://github.com/aashishpanchal/axlite/tree/main/packages/axlite#readme"
 }

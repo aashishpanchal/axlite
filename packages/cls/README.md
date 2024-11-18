@@ -1,10 +1,10 @@
-# **@axpress/cls** 🚀
+# **@axlite/cls** 🚀
 
 A lightweight utility for managing class-based controllers in Express.js with support for dependency injection via `tsyringe`. Simplify your route handling with flexible controller management, using either dependency injection or local instances.
 
 ## **Motivation** 💡
 
-Class-based controllers in Express.js can be tricky due to manual `this` binding and dependency management. `@axpress/cls` makes this easier by providing utilities to handle class-based controllers seamlessly.
+Class-based controllers in Express.js can be tricky due to manual `this` binding and dependency management. `@axlite/cls` makes this easier by providing utilities to handle class-based controllers seamlessly.
 
 - Use `tsyringe` for dependency injection, or create local instances for simplicity.
 - Simplify route handling by wrapping controller methods dynamically.
@@ -33,10 +33,10 @@ Class-based controllers in Express.js can be tricky due to manual `this` binding
 
 ## Installation 📥
 
-Install `@axpress/cls` and its dependencies:
+Install `@axlite/cls` and its dependencies:
 
 ```bash
-npm install --save axpress @axpress/cls
+npm install --save axlite @axlite/cls
 ```
 
 Ensure `tsyringe` and `reflect-metadata` are installed for dependency injection **(if use it)**:
@@ -90,7 +90,7 @@ The `createController` function simplifies the process of creating class-based c
 ```typescript
 // controller.ts
 import {injectable} from 'tsyringe';
-import {Controller} from '@axpress/cls';
+import {Controller} from '@axlite/cls';
 
 @injectable()
 class ExampleController extends Controller {
@@ -126,7 +126,7 @@ Retrieves and wraps a method from the controller for routing.
 ```typescript
 // controller.ts
 import {injectable} from 'tsyringe';
-import {Controller} from '@axpress/cls';
+import {Controller} from '@axlite/cls';
 
 @injectable()
 class ExampleController extends Controller {
@@ -151,7 +151,7 @@ Retrieves and wraps a method from the controller for routing.
 
 ```typescript
 // controller.ts
-import {LocalController} from '@axpress/cls';
+import {LocalController} from '@axlite/cls';
 
 class ExampleController extends LocalController {
   async exampleMethod(req: Request, res: Response) {
@@ -177,7 +177,7 @@ You can use either `createController` or the static `Controller`/`LocalControlle
 
 ```typescript
 import {injectable} from 'tsyringe';
-import {Controller} from '@axpress/cls';
+import {Controller} from '@axlite/cls';
 
 @injectable()
 class AuthController extends Controller {
@@ -192,7 +192,7 @@ app.post('/login', AuthController.getMethod('login'));
 ### **Using Local Controllers**
 
 ```typescript
-import {LocalController} from '@axpress/cls';
+import {LocalController} from '@axlite/cls';
 
 class BlogController extends LocalController {
   async getPosts(req, res) {
@@ -206,7 +206,7 @@ app.get('/posts', BlogController.getMethod('getPosts'));
 ### **Dynamic Instance Creation**
 
 ```typescript
-import {createController} from '@axpress/cls';
+import {createController} from '@axlite/cls';
 
 const auth = createController(AuthController);
 app.post('/login', auth.getMethod('login'));
@@ -214,11 +214,11 @@ app.post('/login', auth.getMethod('login'));
 
 ## **Conclusion** 🏁
 
-`@axpress/cls` provides a robust and flexible way to manage controllers in Express.js. Whether you need dependency injection or prefer simpler local instances, this library has you covered. Streamline your application development today!
+`@axlite/cls` provides a robust and flexible way to manage controllers in Express.js. Whether you need dependency injection or prefer simpler local instances, this library has you covered. Streamline your application development today!
 
 ## Contributing 🤝
 
-We welcome contributions to make `@axpress/cls` even better!
+We welcome contributions to make `@axlite/cls` even better!
 
 ### How to contribute:
 
