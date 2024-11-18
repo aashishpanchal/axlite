@@ -46,12 +46,12 @@
     "typescript": "^5.6.3"
   },
   "keywords": [
-    "exlite",
+    "ex-lite",
     "express",
     "tsyringe",
-    "exlite-cls",
+    "ex-lite-cls",
     "express-cls",
-    "@exlite/cls"
+    "@ex-lite/cls"
   ],
   "homepage": "https://github.com/aashishpanchal/exlite/tree/main/packages/cls#readme"
 }
