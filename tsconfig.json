@@ -1,17 +1,22 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "esnext",
-    "lib": ["esnext"],
+    "target": "es2022",
     "composite": false,
     "declaration": true,
     "strictNullChecks": false,
+    "removeComments": false,
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "sourceMap": false,
     "isolatedModules": true,
-    "forceConsistentCasingInFileNames": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "preserveWatchOutput": true,
     "skipLibCheck": true,
-    "strict": true
-  }
+    "strict": true,
+    "baseUrl": "./",
+    "outDir": "dist"
+  },
+  "include": ["src/**/*.ts"]
 }
