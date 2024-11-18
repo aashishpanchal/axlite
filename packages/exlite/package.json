@@ -1,5 +1,5 @@
 {
-  "name": "exlite",
+  "name": "axpress",
   "version": "0.0.5",
   "description": "A utility library designed to simplify and enhance Express.js applications.",
   "main": "dist/index.js",
@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aashishpanchal/exlite.git"
+    "url": "git+https://github.com/aashishpanchal/axpress.git"
   },
   "author": "Aashish Panchal <aipanchal51@gmail.com>",
   "license": "MIT",
@@ -55,5 +55,5 @@
     "http-status",
     "http-errors"
   ],
-  "homepage": "https://github.com/aashishpanchal/exlite/tree/main/packages/exlite#readme"
+  "homepage": "https://github.com/aashishpanchal/axpress/tree/main/packages/axpress#readme"
 }

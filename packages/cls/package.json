@@ -1,5 +1,5 @@
 {
-  "name": "@ex-lite/cls",
+  "name": "@axpress/cls",
   "version": "0.0.1",
   "description": "Simple and easy way to make controller with tsyringe",
   "main": "dist/index.js",
@@ -23,12 +23,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aashishpanchal/exlite.git"
+    "url": "git+https://github.com/aashishpanchal/axpress.git"
   },
   "author": "Aashish Panchal <aipanchal51@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
-    "exlite": "0.0.3",
+    "axpress": "0.0.3",
     "express": "^4.21.0",
     "tsyringe": "4.8.0"
   },
@@ -46,12 +46,12 @@
     "typescript": "^5.6.3"
   },
   "keywords": [
-    "ex-lite",
+    "axpress",
     "express",
     "tsyringe",
-    "ex-lite-cls",
-    "express-cls",
-    "@ex-lite/cls"
+    "axpress-cls",
+    "axpress-cls",
+    "@axpress/cls"
   ],
-  "homepage": "https://github.com/aashishpanchal/exlite/tree/main/packages/cls#readme"
+  "homepage": "https://github.com/aashishpanchal/axpress/tree/main/packages/cls#readme"
 }

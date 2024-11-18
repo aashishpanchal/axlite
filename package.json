@@ -1,7 +1,7 @@
 {
-  "name": "@exlite/repo",
+  "name": "@axpress/repo",
   "version": "0.0.5",
-  "description": "Exlite Repo",
+  "description": "axpress Repo",
   "engines": {
     "node": ">=16.20.1"
   },
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aashishpanchal/exlite.git"
+    "url": "git+https://github.com/aashishpanchal/axpress.git"
   },
   "devDependencies": {
     "prettier": "^3.3.3",

@@ -1,12 +1,12 @@
-# 🚀 ExLite
+# 🚀 Axpress
 
-[![npm downloads](https://img.shields.io/npm/dm/exlite.svg)](https://www.npmjs.com/package/exlite)
-[![npm version](https://img.shields.io/npm/v/exlite.svg)](https://www.npmjs.com/package/exlite)
+[![npm downloads](https://img.shields.io/npm/dm/axpress.svg)](https://www.npmjs.com/package/axpress)
+[![npm version](https://img.shields.io/npm/v/axpress.svg)](https://www.npmjs.com/package/axpress)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Overview 🌟
 
-`exlite` is a lightweight utility library designed specifically for Express.js, helping developers simplify server-side logic and reduce boilerplate code. It provides ready-to-use features like error handling, HTTP status utilities, and standardized API responses, enabling you to write cleaner, more maintainable code effortlessly.
+`axpress` is a lightweight utility library designed specifically for Express.js, helping developers simplify server-side logic and reduce boilerplate code. It provides ready-to-use features like error handling, HTTP status utilities, and standardized API responses, enabling you to write cleaner, more maintainable code effortlessly.
 
 ## Table of Contents 📚
 
@@ -36,20 +36,20 @@
 ### Installation 📥
 
 ```bash
-npm install --save exlite
+npm install --save axpress
 ```
 
 ### Motivation 💡
 
-Building APIs often involves repetitive tasks like handling errors, managing HTTP status codes, or structuring JSON responses. exlite was created to eliminate this hassle, allowing developers to focus on writing business logic instead of re-inventing common solutions. Whether you're a beginner or an experienced developer, exlite streamlines your workflow and ensures your Express applications are consistent and reliable.
+Building APIs often involves repetitive tasks like handling errors, managing HTTP status codes, or structuring JSON responses. axpress was created to eliminate this hassle, allowing developers to focus on writing business logic instead of re-inventing common solutions. Whether you're a beginner or an experienced developer, axpress streamlines your workflow and ensures your Express applications are consistent and reliable.
 
 ### Quick Start ⚡
 
-Here’s a minimal setup to get you started with `exlite`:
+Here’s a minimal setup to get you started with `axpress`:
 
 ```typescript
 import express from 'express';
-import {wrapper, globalErrorHandler} from 'exlite';
+import {wrapper, globalErrorHandler} from 'axpress';
 
 const app = express();
 
@@ -85,7 +85,7 @@ The `globalErrorHandler` middleware manages `HttpErrors` and unknown errors, ret
 **Usage:**
 
 ```typescript
-import {errorHandler} from 'exlite';
+import {errorHandler} from 'axpress';
 
 // Basic usage with default options
 app.use(
@@ -113,12 +113,12 @@ app.use(
 
 ## Wrapper: Simplifying Controllers 🛠️
 
-The `wrapper` function in `exlite` eliminates repetitive `try-catch` blocks by managing error handling for both async and sync functions. It also integrates seamlessly with `ApiRes` for enhanced response handling. and provide other handler of features.
+The `wrapper` function in `axpress` eliminates repetitive `try-catch` blocks by managing error handling for both async and sync functions. It also integrates seamlessly with `ApiRes` for enhanced response handling. and provide other handler of features.
 
 #### Simplifying Route Handlers
 
 ```typescript
-import {wrapper, ApiRes} from 'exlite';
+import {wrapper, ApiRes} from 'axpress';
 
 // Route without wrapper (traditional approach with try-catch)
 app.get('/user/:id', async (req, res, next) => {
@@ -130,7 +130,7 @@ app.get('/user/:id', async (req, res, next) => {
   }
 });
 
-// Route using wrapper (simplified with exlite)
+// Route using wrapper (simplified with axpress)
 app.get(
   '/user/:id',
   wrapper(async (req, res) => {
@@ -203,7 +203,7 @@ const login = wrapper(async (req, res) => {
 
 ```typescript
 import {Role} from './constants';
-import {wrapper, ForbiddenError} from 'exlite';
+import {wrapper, ForbiddenError} from 'axpress';
 
 /** Permission middleware */
 export const permission = (...roles: Role[]) =>
@@ -233,7 +233,7 @@ export const adminOrUser = permission(Role.ADMIN, Role.USER);
 **Usage:**
 
 ```typescript
-import {ApiRes} from 'exlite';
+import {ApiRes} from 'axpress';
 
 // with paginated
 const list = wrapper(async req => {
@@ -271,7 +271,7 @@ The `HttpError` class standardizes error handling by extending the native `Error
 **Usage:**
 
 ```typescript
-import {HttpError, HttpStatus} from 'exlite';
+import {HttpError, HttpStatus} from 'axpress';
 
 // Example without wrapper
 app.get('*', () => {
@@ -373,7 +373,7 @@ The `HttpStatus` provides readable constants for standard HTTP status codes (2xx
 **Usage:**
 
 ```typescript
-import {HttpStatus} from 'exlite';
+import {HttpStatus} from 'axpress';
 
 // Example: Basic usage in a route
 app.get('/status-example', (req, res) => {
@@ -477,7 +477,7 @@ const statusName = HttpStatus.NAMES.$200; // 'OK'
 
 ## Conclusion 🏁
 
-`exlite` is a powerful tool designed to simplify and enhance Express.js applications by providing essential features out of the box. Whether you’re building a simple API or a complex web application, `exlite` helps you maintain clean and manageable code.
+`axpress` is a powerful tool designed to simplify and enhance Express.js applications by providing essential features out of the box. Whether you’re building a simple API or a complex web application, `axpress` helps you maintain clean and manageable code.
 
 ## Contributing 🤝
 
