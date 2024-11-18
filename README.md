@@ -14,8 +14,8 @@ ExLite aims to enhance your Express.js development experience by offering a suit
 
 ## Ecosystem Libraries
 
-- [`exlite`](https://github.com/aashishpanchal/exlite/tree/main/packages/exlite)
-- [`@exlite/tsyrings`](https://github.com/aashishpanchal/exlite/tree/main/packages/tsyrings)
+- [`exlite`](https://github.com/aashishpanchal/exlite/tree/main/packages/exlite#readme)
+- [`@exlite/cls`](https://github.com/aashishpanchal/exlite/tree/main/packages/cls#readme)
 
 ## Getting Started
 
