@@ -1,6 +1,7 @@
 {
-  "name": "@axlite/repo",
-  "version": "0.0.5",
+  "name": "axlite-repo",
+  "version": "1.0.0",
+  "private": true,
   "description": "axlite Repo",
   "engines": {
     "node": ">=16.20.1"

@@ -1,4 +1,4 @@
-# axlite Repo
+# Axlite Repo
 
 [![npm downloads](https://img.shields.io/npm/dm/axlite.svg)](https://www.npmjs.com/package/axlite)
 [![npm version](https://img.shields.io/npm/v/axlite.svg)](https://www.npmjs.com/package/axlite)

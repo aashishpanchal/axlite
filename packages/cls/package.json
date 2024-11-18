@@ -1,6 +1,6 @@
 {
   "name": "@axlite/cls",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Simple and easy way to make controller with tsyringe",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -28,7 +28,7 @@
   "author": "Aashish Panchal <aipanchal51@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
-    "axlite": "1.0.0",
+    "axlite": "1.0.1",
     "express": "^4.21.0"
   },
   "devDependencies": {
