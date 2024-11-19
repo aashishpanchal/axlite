@@ -1,6 +1,6 @@
 {
   "name": "exlite",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A utility library designed to simplify and enhance Express.js applications.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -31,8 +31,7 @@
   "author": "Aashish Panchal <aipanchal51@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
-    "express": "^4.21.0",
-    "tsyringe": "^4.8.0"
+    "express": "^4.21.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",

@@ -1,5 +1,5 @@
 export * from './api-res';
-export * from './guards';
+export * from './utils';
 export * from './errors';
 export * from './factory';
 export * from './types';

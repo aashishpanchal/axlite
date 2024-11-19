@@ -19,6 +19,7 @@
 - [Standardized JSON Responses with `ApiRes`](#standardized-json-responses-with-apires-)
 - [HttpError](#httperror-)
 - [HttpStatus](#httpstatus-)
+- [`wrapperController` Function](#wrappercontroller-function-)
 - [Conclusion](#conclusion-)
 - [Contributing](#contributing-)
 - [Author](#author-)
@@ -474,6 +475,106 @@ const statusName = HttpStatus.NAMES.$200; // 'OK'
 - **`HttpStatus.BANDWIDTH_LIMIT_EXCEEDED`**: 509 — Bandwidth limit exceeded.
 - **`HttpStatus.NOT_EXTENDED`**: 510 — Not extended.
 - **`HttpStatus.NETWORK_AUTHENTICATION_REQUIRED`**: 511 — Network authentication required.
+
+## `wrapperController` Function 🔧
+
+The `wrapperController` function simplifies the process of creating class-based controllers and automatically handles method references, dependency injection.
+
+#### `wrapperController` Arguments:
+
+- **`cls`** _(required)_: The controller class to create an instance of.
+- **`type`** _(optional)_: Specifies the type of container to use for dependency injection.
+  - **Options**: `'local'` | `'tsyringe'` | `'typedi'`
+
+#### **`getMethod(key: string): ReqHandler`**
+
+- **Purpose**: Retrieve and wrap a controller method for use in routes.
+- **Parameter**: `key` - Name of the method to retrieve.
+- **Return**: A bound and wrapped `ReqHandler`.
+
+#### Usage:
+
+```typescript
+// controller.ts
+import {injectable} from 'tsyringe';
+import {wrapperController} from 'exlite';
+
+class ExampleController {
+  async exampleMethod(req: Request, res: Response) {
+    res.send('Hello, World!');
+  }
+}
+
+// router.ts
+const example = wrapperController(ExampleController, 'local');
+// Router configuration
+app.get('/example', example.getMethod('exampleMethod'));
+```
+
+#### If you use `tsyringe` | `typedi`, you need some configuration.
+
+1. installation of `tsyringe` or `typedi`
+
+```bash
+  npm install reflect-metadata
+  npm install --save tsyringe # or npm install --save typedi
+```
+
+2. **Configure TypeScript**  
+   Add the following to your `tsconfig.json`:
+   ```json
+   {
+     "compilerOptions": {
+       "experimentalDecorators": true,
+       "emitDecoratorMetadata": true
+     }
+   }
+   ```
+3. **Import `reflect-metadata`**  
+   Import this at the entry point of your application (e.g., `app.ts` or `server.ts`):
+   ```typescript
+   import 'reflect-metadata';
+   ```
+
+### Examples 🛠️
+
+#### Dependency Injection with `tsyringe`
+
+```typescript
+import {injectable} from 'tsyringe';
+import {wrapperController} from 'exlite';
+
+@injectable()
+class AuthController {
+  async login(req, res) {
+    res.send({message: 'Logged in!'});
+  }
+}
+
+// router.ts
+const auth = wrapperController(AuthController, 'tsyringe');
+// Router configuration
+app.get('/example', auth.getMethod('login'));
+```
+
+#### Dependency Injection with `typedi`
+
+```typescript
+import {Service} from 'typedi';
+import {wrapperController} from 'exlite';
+
+@Service()
+class AuthController {
+  async login(req, res) {
+    res.send({message: 'Logged in!'});
+  }
+}
+
+// router.ts
+const auth = wrapperController(AuthController, 'typedi');
+// Router configuration
+app.get('/example', auth.getMethod('login'));
+```
 
 ## Conclusion 🏁
 
