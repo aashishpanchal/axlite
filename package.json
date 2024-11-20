@@ -1,6 +1,6 @@
 {
   "name": "exlite",
-  "version": "1.0.4",
+  "version": "0.1.0",
   "description": "A utility library designed to simplify and enhance Express.js applications.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
